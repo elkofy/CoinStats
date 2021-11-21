@@ -15,6 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap"
       rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="script.js" charset="utf-8"></script>
 
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -25,8 +27,10 @@
     </header>
 
     <div id="dashboard">
+      
       <div id="coins-table" class="frosted-glass">
         <table>
+
           <thead>
             <tr>
               <th colspan="1">Rang</th>
@@ -37,34 +41,12 @@
               <th colspan="1">Cours</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>sigle.png</td>
-              <td>BITCOIN</td>
-              <td>$67,000</td>
-              <td>-6,42</td>
-              <td>COURS BTC</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>sigle.png</td>
-              <td>BITCOIN</td>
-              <td>$67,000</td>
-              <td>-6,42</td>
-              <td>COURS BTC</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>sigle.png</td>
-              <td>BITCOIN</td>
-              <td>$67,000</td>
-              <td>-6,42</td>
-              <td>COURS BTC</td>
-            </tr>
-          </tbody>
+
+          <tbody id="listeCrypto"></tbody>
+
         </table>
       </div>
+
       <div id="left-panel">
         <div id="pager" class="frosted-glass">
           <div id="page-viewer" class="pager-elements">PAGE 1</div>
