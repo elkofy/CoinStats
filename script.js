@@ -12,6 +12,7 @@ $(document).ready(function () {
             page++;
             $("#listeCrypto").empty();
             ajax();
+            buttonswitcher("page-next");
         }
     });
 
@@ -22,16 +23,17 @@ $(document).ready(function () {
             page--;
             $("#listeCrypto").empty();
             ajax();
+            buttonswitcher("page-before");
         }
     });
 
-    // function buttonswitcher(id) {
-    //     console.log(id);
-    //     $("#" + id).toggleClass("pager-elements-active");
-    //     setTimeout(() => {
-    //         $("#" + id).toggleClass("pager-elements-active");
-    //     }, 100);
-    // }
+    function buttonswitcher(id) {
+         console.log(id);
+         $("#" + id).toggleClass("pager-elements-active");
+         setTimeout(() => {
+             $("#" + id).toggleClass("pager-elements-active");
+         }, 100);
+    }
 
     // Appel Ajax
     function ajax() {
