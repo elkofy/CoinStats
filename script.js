@@ -26,6 +26,13 @@ $(document).ready(function () {
             buttonswitcher("page-before");
         }
     });
+    
+    $("#page-reset").on("click", function () {
+        skip = 0;
+        page = 1;
+        $("#listeCrypto").empty();
+        ajax();
+    });
 
     function buttonswitcher(id) {
          console.log(id);
@@ -33,6 +40,10 @@ $(document).ready(function () {
          setTimeout(() => {
              $("#" + id).toggleClass("pager-elements-active");
          }, 100);
+    }
+    
+    function classVariation(variation){
+        return (variation > 0) ? "variationPlus" : "variationMoins";
     }
 
     // Appel Ajax
@@ -47,13 +58,14 @@ $(document).ready(function () {
 
             for (let crypto of data) {
                 let price = (crypto.price).toFixed(3);
+                let variation = crypto.priceChange1d;
 
                 $("#listeCrypto").append('<tr> <td>' + crypto.rank + '</td>  <td> <img src=' + crypto.icon + ' width =' + size + ' height =' +
-                    size + '> </td> <td>' + crypto.name + '</td> <td>' + price + ' €</td> <td>' + crypto.priceChange1d + '</td> <td>' + crypto.symbol + '</td> </tr>');
+                    size + '> </td> <td>' + crypto.name + '</td> <td>' + price + ' €</td> <td class='+classVariation(variation)+'>' + variation + '%</td> <td>' + crypto.symbol + '</td> </tr>');
             }
         });
 
-        $("#page-viewer").html("PAGE "+page);
+        $("#page-viewer p").html("PAGE "+page);
         console.log(page);
     }
 
