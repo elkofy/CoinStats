@@ -105,6 +105,7 @@ td {
 }
 table th:first-child {
   border-radius: 10px 0 0 10px;
+  width: 8%;
 }
 table th:last-child {
   border-radius: 0 10px 10px 0;
@@ -116,6 +117,7 @@ table th:last-child {
 
 table td:first-child {
   border-radius: 10px 0 0 10px;
+  width: 8%;
 }
 table td:last-child {
   border-radius: 0 10px 10px 0;
@@ -126,10 +128,18 @@ thead > tr {
   height: 100px;
   border-collapse: collapse;
 }
+thead > tr > th{
+  width: 10%;
+}
+tbody > tr > td{
+  width: 10%;
+}
 thead {
   border-collapse: collapse;
 }
-
+table tbody > tr{
+  height: 5em;
+}
 .pager-elements {
   width: 80%;
   height: 70px;
@@ -143,6 +153,7 @@ thead {
   align-items: center;
   font-weight: 600;
   font-size: 16px;
+  cursor: pointer;
 }
 .pager-elements-active {
   width: 80%;
@@ -151,7 +162,39 @@ thead {
   border: none;
   border-radius: 15px;
 }
+.pager-elements:hover{
+  background:#4e5596;
+  color: #ffffff;
+}
 
-table tbody > tr{
-  height: 5em;
+#page-viewer{
+  width: 80%;
+  height: 70px;
+  background: linear-gradient(
+    320.84deg,
+    #bc6f6f 20.07%,
+    #b86688 52.27%,
+    #303a8d 96.22%
+  );
+  color: white;
+  border: none;
+  border-radius: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+#page-reset{
+  font-size: 12px;
+  cursor: pointer;
+}
+.variationPlus{
+  color: green;
+}
+
+.variationMoins{
+  color: red;
 }
