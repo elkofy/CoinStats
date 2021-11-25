@@ -5,44 +5,67 @@ $(document).ready(function () {
     let limit = 5;
     let page = 1;
 
+    
+   //Attribution des actions sur les boutons
     $("#page-next").on("click", function () {
-        console.log('next');
         if (skip >= 0) {
-            skip+=limit;
-            page++;
-            $("#listeCrypto").empty();
-            ajax();
+            changePage("+");
             buttonswitcher("page-next");
         }
     });
 
     $("#page-before").on("click", function () {
-        console.log('before');
         if (skip - limit >= 0) {
-            skip-=limit;
-            page--;
-            $("#listeCrypto").empty();
-            ajax();
+            changePage("-");
             buttonswitcher("page-before");
         }
     });
-    
+
     $("#page-reset").on("click", function () {
-        skip = 0;
-        page = 1;
-        $("#listeCrypto").empty();
-        ajax();
+        resetPage();
     });
 
-    function buttonswitcher(id) {
-         console.log(id);
-         $("#" + id).toggleClass("pager-elements-active");
-         setTimeout(() => {
-             $("#" + id).toggleClass("pager-elements-active");
-         }, 100);
+
+    //Déclaration des fonctions
+    function changePage(operation) {
+        if (operation == "+") {
+            skip += limit;
+            page++;
+        } else if (operation == "-") {
+            skip -= limit;
+            page--;
+        }
+
+        animationAjax();
     }
-    
-    function classVariation(variation){
+
+    function resetPage() {
+        skip = 0;
+        page = 1;
+
+        animationAjax();
+    }
+
+    function buttonswitcher(id) {
+        console.log(id);
+        $("#" + id).toggleClass("pager-elements-active");
+        setTimeout(() => {
+            $("#" + id).toggleClass("pager-elements-active");
+        }, 100);
+    }
+
+    function animationAjax(){
+        $("#listeCrypto").fadeOut();
+
+        setTimeout(() => {
+            $("#listeCrypto").empty();
+            ajax();
+
+            $("#listeCrypto").fadeIn();
+        }, 800);
+    }
+
+    function classVariation(variation) {
         return (variation > 0) ? "variationPlus" : "variationMoins";
     }
 
@@ -58,17 +81,19 @@ $(document).ready(function () {
 
             for (let crypto of data) {
                 let price = (crypto.price).toFixed(3);
-                let variation = crypto.priceChange1d;
+                let variation = crypto.priceChange1h; //variation dans l'heure
 
                 $("#listeCrypto").append('<tr> <td>' + crypto.rank + '</td>  <td> <img src=' + crypto.icon + ' width =' + size + ' height =' +
-                    size + '> </td> <td>' + crypto.name + '</td> <td>' + price + ' €</td> <td class='+classVariation(variation)+'>' + variation + '%</td> <td>' + crypto.symbol + '</td> </tr>');
+                    size + '> </td> <td>' + crypto.name + '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol + '</td> </tr>');
             }
         });
 
-        $("#page-viewer p").html("PAGE "+page);
+        $("#page-viewer p").html("PAGE " + page);
         console.log(page);
     }
 
+
+    //Premier appel Ajax
     ajax();
 
 
