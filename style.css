@@ -198,3 +198,6 @@ table tbody > tr{
 .variationMoins{
   color: red;
 }
+.variationZero{
+  color: gray;
+}

@@ -2,8 +2,10 @@ $(document).ready(function () {
 
     //VARIABLES
     let skip = 0;
-    let limit = 5;
+    let limit = 10;
     let page = 1;
+    let nbDecimals = 4;
+    let monney = "EUR";
 
     
    //Attribution des actions sur les boutons
@@ -66,25 +68,44 @@ $(document).ready(function () {
     }
 
     function classVariation(variation) {
-        return (variation > 0) ? "variationPlus" : "variationMoins";
+        let classColor;
+
+        if(variation > 0){
+            classColor = "variationPlus";
+        }else if(variation < 0){
+            classColor = "variationMoins";
+        }else{
+            classColor = "variationZero";
+        }
+
+        return classColor;
     }
 
     // Appel Ajax
     function ajax() {
         $.ajax({
-            url: "https://api.coinstats.app/public/v1/coins?skip=" + skip + "&limit=" + limit + "&currency=EUR",
+            url: "https://api.coinstats.app/public/v1/coins?skip=" + skip + "&limit=" + limit + "&currency="+monney,
             method: "GET",
             dataType: "json",
         }).then(function (response) {
             let data = response.coins;
             let size = 50;
+            let miniSize = 15;
 
             for (let crypto of data) {
-                let price = (crypto.price).toFixed(3);
+                let price = (crypto.price).toFixed(nbDecimals);
                 let variation = crypto.priceChange1h; //variation dans l'heure
 
-                $("#listeCrypto").append('<tr> <td>' + crypto.rank + '</td>  <td> <img src=' + crypto.icon + ' width =' + size + ' height =' +
-                    size + '> </td> <td>' + crypto.name + '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol + '</td> </tr>');
+                let tdTwitter = '<a href=' + crypto.twitterUrl + ' target="_blank" title="Lien du twitter de la Crypto"><img src="Twitter_Bird.svg.png" width =' + miniSize + ' height =' +
+                miniSize + '></a>';
+
+                let tdSigle = '<a href=' + crypto.websiteUrl + ' target="_blank" title="Lien du site de la Crypto"><img src=' + crypto.icon + ' width =' + size + ' height =' +
+                size + '></a> <span>'+tdTwitter+'</span>';
+
+
+                $("#listeCrypto").append('<tr> <td>' + crypto.rank + '.</td> <td>'+tdSigle+'</td> <td>' + crypto.name + 
+                '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol +
+                '</td> </tr>');
             }
         });
 
