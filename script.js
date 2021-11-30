@@ -96,7 +96,7 @@ $(document).ready(function () {
                 let price = (crypto.price).toFixed(nbDecimals);
                 let variation = crypto.priceChange1h; //variation dans l'heure
 
-                let tdTwitter = '<a href=' + crypto.twitterUrl + ' target="_blank" title="Lien du twitter de la Crypto"><img src="Twitter_Bird.svg.png" width =' + miniSize + ' height =' +
+                let tdTwitter = '<a href=' + crypto.twitterUrl + ' target="_blank" title="Lien du twitter de la Crypto"><img src="Twitter_Bird.png" width =' + miniSize + ' height =' +
                 miniSize + '></a>';
 
                 let tdSigle = '<a href=' + crypto.websiteUrl + ' target="_blank" title="Lien du site de la Crypto"><img src=' + crypto.icon + ' width =' + size + ' height =' +
@@ -107,6 +107,11 @@ $(document).ready(function () {
                 '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol +
                 '</td> </tr>');
             }
+        }).catch(function error() {
+            let errordiv = document.createElement('div');
+            $(errordiv).css('text-align', 'center');
+            $(errordiv).text('La connexion n\'as pas pu etre etabli essayer de rafraichir votre navigateur 😥');
+            $("#coins-table").append(errordiv);
         });
         
         $("#page-viewer p").html("PAGE " + page);
@@ -120,7 +125,7 @@ $(document).ready(function () {
             method: "GET",
             dataType: "json",
         }).then(function (response) {
-            let data = response.slice(0,10);
+            let data = response.slice(0,11);
              for (let fiat of data) {
                  let name = fiat.name;
                  let rate = fiat.rate.toFixed(2);
@@ -138,8 +143,11 @@ $(document).ready(function () {
                  console.log(name,rate,symbol,imageUrl)
              }
         }).catch(function error() {
-            console.log("désolé")
-        });
+            let errordiv = document.createElement('div')
+            $(errordiv).css('text-align', 'center');
+            $(errordiv).text('La connexion n\'as pas pu etre etabli essayer de rafraichir votre navigateur 😥');
+            $("#fiats-table").append(errordiv)
+                });
         
     
     }
