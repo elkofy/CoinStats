@@ -27,64 +27,54 @@
     </header>
 
     <div id="dashboard">
-      
       <div id="coins-table" class="frosted-glass">
         <table>
-
           <thead>
             <tr>
               <th colspan="1">Rang</th>
               <th colspan="1">Sigle</th>
               <th colspan="1">Nom</th>
               <th colspan="1">Valeur</th>
-              <th colspan="1">Variation <select name="pets" id="pet-select">
-                <option value="hour">H</option>
-                <option value="day">D</option>
-                <option value="week">W</option>
-            </select> </th>
+              <th colspan="1">
+                Variation
+                <select name="Variations" id="variation">
+                  <option value="hour">H</option>
+                  <option value="day">D</option>
+                  <option value="week">W</option>
+                </select>
+              </th>
               <th colspan="1">Cours</th>
             </tr>
           </thead>
 
-          <tbody id="listeCrypto"></tbody>
-
+          <tbody id="liste-crypto" class="shadow-elements"></tbody>
         </table>
       </div>
 
       <div id="left-panel">
-        <div id="pager" class="frosted-glass">
-          <div id="page-viewer" >
+        <div id="pager" class="shadow-elements">
+          <div id="page-viewer">
             <p>PAGE 1</p>
             <span id="page-reset">Reset</span>
           </div>
-          <button
-            id="page-next"
-            class="pager-elements"
-          >
-            PAGE SUIVANTE
-          </button>
-          <button
-            id="page-before"
-            class="pager-elements"
-          >
+          <button id="page-next" class="pager-elements">PAGE SUIVANTE</button>
+          <button id="page-before" class="pager-elements">
             PAGE PRECEDENTE
           </button>
         </div>
-        <div id="cube" class="frosted-glass">
+        <div id="fiats-table" class="frosted-glass">
           <h3>FAVORIS</h3>
-          <ul>
-            <li>
-              <div>
-                <p>BITCOIN</p>
-              </div>
-            </li>
-            <li>
-              <p>ETHEREUM</p>
-            </li>
-            <li>
-              <p>DOGE</p>
-            </li>
-          </ul>
+          <table>
+            <thead class="fiat-header">
+              <th>Sigle</th>
+              <th>Nom</th>
+              <th>Taux</th>
+              <th>Symbole</th>
+            </thead>
+            <tbody id="liste-fiats" class="shadow-elements">
+            </tbody>
+
+          </table>
         </div>
       </div>
     </div>

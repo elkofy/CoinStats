@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  font-family: "Open Sans";
+  font-family: "Open Sans mono";
 }
 
 body {
@@ -11,92 +11,88 @@ body {
     #b86688 52.27%,
     #303a8d 96.22%
   );
+  width: auto;
+  height: auto;
 }
 
 header {
-  padding: 1% 10% 1% 10%;
+  padding: 0% 5% 0.5% 5%;
   width: fit-content;
   height: fit-content;
-  margin: 2% auto;
+  margin: 1% auto;
 }
 h1,
-h2 {
+h2,h3 {
   color: white;
   text-align: center;
 }
 h1 {
-  font-size: 56px;
+  font-size: 42px;
   height: fit-content;
 }
 h1 + h2 {
-  padding-top: 5px;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .frosted-glass {
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 5px 14px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  position: relative;
-  z-index: 1;
-  background: inherit;
-  overflow: hidden;
 }
-.frosted-glass:before {
-  content: "";
-  position: absolute;
-  background: inherit;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-  filter: blur(10px);
-  margin: -20px;
+.shadow-elements {
+  filter: drop-shadow(0px 1px 5px #000);
 }
+
 #dashboard {
   display: grid;
   grid-template-columns: 80% 19%;
   grid-template-rows: 1fr;
-  grid-column-gap: 40px;
+  grid-column-gap: 20px;
   width: 97%;
-  height: 800px;
+  height: fit-content;
   padding: 0 1.5% 1.5% 1.5%;
 }
 #left-panel {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 60% 40%;
+  grid-template-rows: 30% 65%;
+  grid-row-gap: 38px;
 }
 #pager {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 35px;
-  padding: 5% 1% 1% 1%;
-  width: 80%;
-  height: 85%;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
 }
 
-#cube {
-  width: 80%;
-  height: 100%;
+#fiats-table {
+  width: 100%;
+  min-width: 270px;
+  height: 98%;
+  padding: 1%;
 }
 #coins-table {
   width: 100%;
   /*overflow-y: auto; si besoin permet d'afficher la scroll bar*/
 }
 table {
-  width: 98%;
-  margin: 1%;
+  width: 100%;
+  padding: 0.2% 1%;
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0 6px;
+}
+.fiat-header{
+  height: 2em;
+  border-radius: 0.5em;
 }
 thead {
   border-radius: 1em;
   height: 4em;
+  background-color: black;
 }
 th,
 td {
@@ -105,7 +101,7 @@ td {
 }
 table th:first-child {
   border-radius: 10px 0 0 10px;
-  width: 8%;
+  width: 6%;
 }
 table th:last-child {
   border-radius: 0 10px 10px 0;
@@ -123,25 +119,33 @@ table td:last-child {
   border-radius: 0 10px 10px 0;
 }
 thead > tr {
-  color: #000;
+  color: #fff;
+  background-color: white;
   border-radius: 1em;
-  height: 100px;
   border-collapse: collapse;
 }
-thead > tr > th{
+thead > tr > th {
   width: 10%;
+  background-color: #2f3438;
 }
-tbody > tr > td{
+tbody > tr > td {
   width: 10%;
 }
 thead {
   border-collapse: collapse;
 }
-table tbody > tr{
-  height: 5em;
+table tbody > tr {
+  height: 4em;
+  padding-top: 0;
+}
+
+#liste-fiats > tr{
+  height: 2em;
+
 }
 .pager-elements {
   width: 80%;
+  min-width: 200px;
   height: 70px;
   background: #ffffff;
   border: none;
@@ -162,14 +166,15 @@ table tbody > tr{
   border: none;
   border-radius: 15px;
 }
-.pager-elements:hover{
-  background:#4e5596;
+.pager-elements:hover {
+  background: #4e5596;
   color: #ffffff;
 }
 
-#page-viewer{
+#page-viewer {
   width: 80%;
   height: 70px;
+  min-width: 200px;
   background: linear-gradient(
     320.84deg,
     #bc6f6f 20.07%,
@@ -187,17 +192,17 @@ table tbody > tr{
   font-weight: 600;
   font-size: 20px;
 }
-#page-reset{
+#page-reset {
   font-size: 12px;
   cursor: pointer;
 }
-.variationPlus{
+.variationPlus {
   color: green;
 }
 
-.variationMoins{
+.variationMoins {
   color: red;
 }
-.variationZero{
+.variationZero {
   color: gray;
 }

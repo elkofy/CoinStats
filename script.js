@@ -7,7 +7,7 @@ $(document).ready(function () {
     let nbDecimals = 4;
     let monney = "EUR";
 
-    
+//
    //Attribution des actions sur les boutons
     $("#page-next").on("click", function () {
         if (skip >= 0) {
@@ -57,13 +57,13 @@ $(document).ready(function () {
     }
 
     function animationAjax(){
-        $("#listeCrypto").fadeOut();
+        $("#liste-crypto").fadeOut();
 
         setTimeout(() => {
-            $("#listeCrypto").empty();
+            $("#liste-crypto").empty();
             ajax();
 
-            $("#listeCrypto").fadeIn();
+            $("#liste-crypto").fadeIn();
         }, 800);
     }
 
@@ -103,19 +103,51 @@ $(document).ready(function () {
                 size + '></a> <span>'+tdTwitter+'</span>';
 
 
-                $("#listeCrypto").append('<tr> <td>' + crypto.rank + '.</td> <td>'+tdSigle+'</td> <td>' + crypto.name + 
+                $("#liste-crypto").append('<tr> <td>' + crypto.rank + '.</td> <td>'+tdSigle+'</td> <td>' + crypto.name + 
                 '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol +
                 '</td> </tr>');
             }
         });
-
+        
         $("#page-viewer p").html("PAGE " + page);
         console.log(page);
     }
 
 
+    function getAjax() {
+        $.ajax({
+            url: "https://api.coinstats.app/public/v1/fiats",
+            method: "GET",
+            dataType: "json",
+        }).then(function (response) {
+            let data = response.slice(0,10);
+             for (let fiat of data) {
+                 let name = fiat.name;
+                 let rate = fiat.rate.toFixed(2);
+                 let symbol = fiat.symbol;
+                 let imageUrl = fiat.imageUrl;
+                 let image = document.createElement('img');
+                 image.src = imageUrl;
+                 image.style.width = "25px"
+                 image.style.height = "25px"
+
+                 $("#liste-fiats").append('<tr> <td>' + name + '.</td> <td>'+rate+'</td> <td>' + symbol + 
+                 '</td> <td>' + image.outerHTML + '</td>');
+
+
+                 console.log(name,rate,symbol,imageUrl)
+             }
+        }).catch(function error() {
+            console.log("désolé")
+        });
+        
+    
+    }
+
     //Premier appel Ajax
     ajax();
+    getAjax();
+
 
 
 });
