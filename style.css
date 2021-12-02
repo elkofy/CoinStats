@@ -158,13 +158,29 @@ table tbody > tr {
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
+  transition: all .35s;
 }
 .pager-elements-active {
-  width: 80%;
+  width: 60%;
   height: 70px;
   background: #f1f1f1;
   border: none;
   border-radius: 15px;
+}
+
+.pager-elements:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all .35s;
 }
 .pager-elements:hover {
   background: #4e5596;
