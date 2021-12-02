@@ -95,6 +95,7 @@ $(document).ready(function () {
         return classColor;
     }
 
+<<<<<<< HEAD
     function changeVariationScreen(variationTime){
         variationName = variationTime;
         $("table thead tr th #variation button").html(variationName);
@@ -110,6 +111,8 @@ $(document).ready(function () {
         }
         return variation;
     }
+=======
+>>>>>>> ad8d7e7282d747105267648b43e6eae391db26a9
 
     // Appel Ajax
     function ajax() {
@@ -156,7 +159,7 @@ $(document).ready(function () {
             method: "GET",
             dataType: "json",
         }).then(function (response) {
-            let data = response.slice(0,11);
+            let data = response;
              for (let fiat of data) {
                  let name = fiat.name;
                  let rate = fiat.rate.toFixed(2);
@@ -183,6 +186,7 @@ $(document).ready(function () {
     
     }
 
+  
     //Premier appel Ajax
     ajax();
     getAjax();
