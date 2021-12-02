@@ -95,7 +95,6 @@ $(document).ready(function () {
         return classColor;
     }
 
-<<<<<<< HEAD
     function changeVariationScreen(variationTime){
         variationName = variationTime;
         $("table thead tr th #variation button").html(variationName);
@@ -111,8 +110,6 @@ $(document).ready(function () {
         }
         return variation;
     }
-=======
->>>>>>> ad8d7e7282d747105267648b43e6eae391db26a9
 
     // Appel Ajax
     function ajax() {
