@@ -56,8 +56,8 @@ h1 + h2 {
 #left-panel {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 30% 65%;
-  grid-row-gap: 38px;
+  grid-template-rows:19% 65%;
+  grid-row-gap:0px;
 }
 #pager {
   display: flex;
@@ -72,11 +72,15 @@ h1 + h2 {
 #fiats-table {
   width: 100%;
   min-width: 270px;
-  height: 98%;
+  height: 40%;
   padding: 1%;
+  overflow-y: auto;
+}
+#fiats-table::-webkit-scrollbar {
+  display: none;
 }
 #coins-table {
-  width: 100%;
+  width: 100%;height: fit-content;
   /*overflow-y: auto; si besoin permet d'afficher la scroll bar*/
 }
 table {
@@ -88,6 +92,7 @@ table {
 .fiat-header{
   height: 2em;
   border-radius: 0.5em;
+  position:static;
 }
 thead {
   border-radius: 1em;
@@ -106,10 +111,10 @@ table th:first-child {
 table th:last-child {
   border-radius: 0 10px 10px 0;
 }
-/*table thead tr{
+table thead tr{
   position: sticky;
   top: 15px;
-} pour la scrollbar si elle est activé*/
+} 
 
 table td:first-child {
   border-radius: 10px 0 0 10px;

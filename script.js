@@ -81,6 +81,7 @@ $(document).ready(function () {
         return classColor;
     }
 
+
     // Appel Ajax
     function ajax() {
         $.ajax({
@@ -125,7 +126,7 @@ $(document).ready(function () {
             method: "GET",
             dataType: "json",
         }).then(function (response) {
-            let data = response.slice(0,11);
+            let data = response;
              for (let fiat of data) {
                  let name = fiat.name;
                  let rate = fiat.rate.toFixed(2);
@@ -152,6 +153,7 @@ $(document).ready(function () {
     
     }
 
+  
     //Premier appel Ajax
     ajax();
     getAjax();
