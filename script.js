@@ -6,8 +6,12 @@ $(document).ready(function () {
     let page = 1;
     let nbDecimals = 4;
     let monney = "EUR";
+    let variationAllTimes = ["Hour","Day","Week"];
+    let changeVar = 0;
+    let variationTime = variationAllTimes[changeVar];
+    let variationName = "Variation horaire";
 
-//
+
    //Attribution des actions sur les boutons
     $("#page-next").on("click", function () {
         if (skip >= 0) {
@@ -25,6 +29,16 @@ $(document).ready(function () {
 
     $("#page-reset").on("click", function () {
         resetPage();
+    });
+
+    $("#variation-loop").on("click", function () {
+        if (changeVar + 1 > 2) {
+            changeVar = 0;
+        }else{
+            changeVar++;
+        }
+        variationTime = variationAllTimes[changeVar];
+        animationAjax();
     });
 
 
@@ -81,6 +95,22 @@ $(document).ready(function () {
         return classColor;
     }
 
+    function changeVariationScreen(variationTime){
+        variationName = variationTime;
+        $("table thead tr th #variation button").html(variationName);
+    }
+
+    function changeVariationVar(variationTime, crypto){
+        if(variationTime == "Hour"){
+            variation = crypto.priceChange1h; //variation dans l'heure
+        }else if(variationTime == "Day"){
+            variation = crypto.priceChange1d; //variation au jour
+        }else{
+            variation = crypto.priceChange1w; //variation a la semaine
+        }
+        return variation;
+    }
+
     // Appel Ajax
     function ajax() {
         $.ajax({
@@ -94,7 +124,7 @@ $(document).ready(function () {
 
             for (let crypto of data) {
                 let price = (crypto.price).toFixed(nbDecimals);
-                let variation = crypto.priceChange1h; //variation dans l'heure
+                let variation = changeVariationVar(variationTime,crypto);
 
                 let tdTwitter = '<a href=' + crypto.twitterUrl + ' target="_blank" title="Lien du twitter de la Crypto"><img src="Twitter_Bird.png" width =' + miniSize + ' height =' +
                 miniSize + '></a>';
@@ -102,6 +132,7 @@ $(document).ready(function () {
                 let tdSigle = '<a href=' + crypto.websiteUrl + ' target="_blank" title="Lien du site de la Crypto"><img src=' + crypto.icon + ' width =' + size + ' height =' +
                 size + '></a> <span>'+tdTwitter+'</span>';
 
+                changeVariationScreen(variationTime);
 
                 $("#liste-crypto").append('<tr> <td>' + crypto.rank + '.</td> <td>'+tdSigle+'</td> <td>' + crypto.name + 
                 '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol +

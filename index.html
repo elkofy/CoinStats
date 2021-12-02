@@ -1,82 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CryptoDash</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="favicon.ico" />
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="script.js" charset="utf-8"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoDash</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <header class="frosted-glass">
-      <h1>CryptoDash</h1>
-      <h2>Toutes informations sur les cryptomonnaies simplement résumées</h2>
-    </header>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.ico" />
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="script.js" charset="utf-8"></script>
 
-    <div id="dashboard">
-      <div id="coins-table" class="frosted-glass">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <header class="frosted-glass">
+    <h1>CryptoDash</h1>
+    <h2>Toutes informations sur les cryptomonnaies simplement résumées</h2>
+  </header>
+
+  <div id="dashboard">
+    <div id="coins-table" class="frosted-glass">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="1">Rang</th>
+            <th colspan="1">Sigle</th>
+            <th colspan="1">Nom</th>
+            <th colspan="1">Valeur</th>
+            <th colspan="1">
+              <div id="variation">
+                <p>Variation</p>
+                <button id="variation-loop">Loop</button>
+              </div>
+            </th>
+            <th colspan="1">Cours</th>
+          </tr>
+        </thead>
+
+        <tbody id="liste-crypto" class="shadow-elements"></tbody>
+      </table>
+    </div>
+
+    <div id="left-panel">
+      <div id="pager" class="shadow-elements">
+        <div id="page-viewer">
+          <p>PAGE 1</p>
+          <span id="page-reset">Reset</span>
+        </div>
+        <button id="page-next" class="pager-elements">PAGE SUIVANTE</button>
+        <button id="page-before" class="pager-elements">
+          PAGE PRECEDENTE
+        </button>
+      </div>
+      <div id="fiats-table" class="frosted-glass">
+        <h3>FIATS</h3>
         <table>
-          <thead>
-            <tr>
-              <th colspan="1">Rang</th>
-              <th colspan="1">Sigle</th>
-              <th colspan="1">Nom</th>
-              <th colspan="1">Valeur</th>
-              <th colspan="1">
-                Variation
-                <select name="Variations" id="variation">
-                  <option value="hour">H</option>
-                  <option value="day">D</option>
-                  <option value="week">W</option>
-                </select>
-              </th>
-              <th colspan="1">Cours</th>
-            </tr>
+          <thead class="fiat-header">
+            <th>Sigle</th>
+            <th>Nom</th>
+            <th>Taux</th>
+            <th>Symbole</th>
           </thead>
+          <tbody id="liste-fiats" class="shadow-elements">
+          </tbody>
 
-          <tbody id="liste-crypto" class="shadow-elements"></tbody>
         </table>
       </div>
-
-      <div id="left-panel">
-        <div id="pager" class="shadow-elements">
-          <div id="page-viewer">
-            <p>PAGE 1</p>
-            <span id="page-reset">Reset</span>
-          </div>
-          <button id="page-next" class="pager-elements">PAGE SUIVANTE</button>
-          <button id="page-before" class="pager-elements">
-            PAGE PRECEDENTE
-          </button>
-        </div>
-        <div id="fiats-table" class="frosted-glass">
-          <h3>FIATS</h3>
-          <table>
-            <thead class="fiat-header">
-              <th>Sigle</th>
-              <th>Nom</th>
-              <th>Taux</th>
-              <th>Symbole</th>
-            </thead>
-            <tbody id="liste-fiats" class="shadow-elements">
-            </tbody>
-
-          </table>
-        </div>
-      </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
