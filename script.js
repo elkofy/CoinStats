@@ -6,13 +6,9 @@ $(document).ready(function () {
     let page = 1;
     let nbDecimals = 4;
     let monney = "EUR";
-    let variationAllTimes = ["Hour","Day","Week"];
-    let changeVar = 0;
-    let variationTime = variationAllTimes[changeVar];
-    let variationName = "Variation horaire";
 
 
-   //Attribution des actions sur les boutons
+    //Attribution des actions sur les boutons
     $("#page-next").on("click", function () {
         if (skip >= 0) {
             changePage("+");
@@ -29,16 +25,6 @@ $(document).ready(function () {
 
     $("#page-reset").on("click", function () {
         resetPage();
-    });
-
-    $("#variation-loop").on("click", function () {
-        if (changeVar + 1 > 2) {
-            changeVar = 0;
-        }else{
-            changeVar++;
-        }
-        variationTime = variationAllTimes[changeVar];
-        animationAjax();
     });
 
 
@@ -63,14 +49,13 @@ $(document).ready(function () {
     }
 
     function buttonswitcher(id) {
-        console.log(id);
         $("#" + id).toggleClass("pager-elements-active");
         setTimeout(() => {
             $("#" + id).toggleClass("pager-elements-active");
         }, 100);
     }
 
-    function animationAjax(){
+    function animationAjax() {
         $("#liste-crypto").fadeOut();
 
         setTimeout(() => {
@@ -84,37 +69,32 @@ $(document).ready(function () {
     function classVariation(variation) {
         let classColor;
 
-        if(variation > 0){
+        if (variation > 0) {
             classColor = "variationPlus";
-        }else if(variation < 0){
+        } else if (variation < 0) {
             classColor = "variationMoins";
-        }else{
+        } else {
             classColor = "variationZero";
         }
 
         return classColor;
     }
 
-    function changeVariationScreen(variationTime){
-        variationName = variationTime;
-        $("table thead tr th #variation button").html(variationName);
-    }
-
-    function changeVariationVar(variationTime, crypto){
-        if(variationTime == "Hour"){
-            variation = crypto.priceChange1h; //variation dans l'heure
-        }else if(variationTime == "Day"){
-            variation = crypto.priceChange1d; //variation au jour
-        }else{
-            variation = crypto.priceChange1w; //variation a la semaine
+    function catchError(errorCatch) {
+        let errordiv = document.createElement('div');
+        $(errordiv).css('text-align', 'center');
+        $(errordiv).text('La connexion n\'as pas pu etre etabli essayer de rafraichir votre navigateur 😥');
+        if (errorCatch) {
+            $("#coins-table").append(errordiv);
+        } else {
+            $("#fiats-table").append(errordiv);
         }
-        return variation;
     }
 
-    // Appel Ajax
+    // Appel Ajax crypto principales
     function ajax() {
         $.ajax({
-            url: "https://api.coinstats.app/public/v1/coins?skip=" + skip + "&limit=" + limit + "&currency="+monney,
+            url: "https://api.coinstats.app/public/v1/coins?skip=" + skip + "&limit=" + limit + "&currency=" + monney,
             method: "GET",
             dataType: "json",
         }).then(function (response) {
@@ -124,32 +104,26 @@ $(document).ready(function () {
 
             for (let crypto of data) {
                 let price = (crypto.price).toFixed(nbDecimals);
-                let variation = changeVariationVar(variationTime,crypto);
 
                 let tdTwitter = '<a href=' + crypto.twitterUrl + ' target="_blank" title="Lien du twitter de la Crypto"><img src="Twitter_Bird.png" width =' + miniSize + ' height =' +
-                miniSize + '></a>';
+                    miniSize + '></a>';
 
-                let tdSigle = '<a href=' + crypto.websiteUrl + ' target="_blank" title="Lien du site de la Crypto"><img src=' + crypto.icon + ' width =' + size + ' height =' +
-                size + '></a> <span>'+tdTwitter+'</span>';
+                let tdSymol = '<a href=' + crypto.websiteUrl + ' target="_blank" title="Lien du site de la Crypto"><img src=' + crypto.icon + ' width =' + size + ' height =' +
+                    size + '></a> <span>' + tdTwitter + '</span>';
 
-                changeVariationScreen(variationTime);
-
-                $("#liste-crypto").append('<tr> <td>' + crypto.rank + '.</td> <td>'+tdSigle+'</td> <td>' + crypto.name + 
-                '</td> <td>' + price + ' €</td> <td class=' + classVariation(variation) + '>' + variation + '%</td> <td>' + crypto.symbol +
-                '</td> </tr>');
+                $("#liste-crypto").append('<tr> <td>' + crypto.rank + '.</td> <td>' + tdSymol + '</td> <td>' + crypto.name +
+                    '</td> <td>' + price + ' €</td> <td class=' + classVariation(crypto.priceChange1h) + '>' + crypto.priceChange1h + '%</td> <td class=' + classVariation(crypto.priceChange1d) + '>' + crypto.priceChange1d + '%</td> <td class=' + classVariation(crypto.priceChange1w) + '>' + crypto.priceChange1w + '%</td> <td>' + crypto.symbol +
+                    '</td> </tr>');
             }
+
         }).catch(function error() {
-            let errordiv = document.createElement('div');
-            $(errordiv).css('text-align', 'center');
-            $(errordiv).text('La connexion n\'as pas pu etre etabli essayer de rafraichir votre navigateur 😥');
-            $("#coins-table").append(errordiv);
+            catchError(true);
         });
-        
+
         $("#page-viewer p").html("PAGE " + page);
-        console.log(page);
     }
 
-
+    // Appel Ajax monnaies fiats
     function getAjax() {
         $.ajax({
             url: "https://api.coinstats.app/public/v1/fiats",
@@ -157,33 +131,27 @@ $(document).ready(function () {
             dataType: "json",
         }).then(function (response) {
             let data = response;
-             for (let fiat of data) {
-                 let name = fiat.name;
-                 let rate = fiat.rate.toFixed(2);
-                 let symbol = fiat.symbol;
-                 let imageUrl = fiat.imageUrl;
-                 let image = document.createElement('img');
-                 image.src = imageUrl;
-                 image.style.width = "25px"
-                 image.style.height = "25px"
+            for (let fiat of data) {
+                let name = fiat.name;
+                let rate = fiat.rate.toFixed(2);
+                let symbol = fiat.symbol;
+                let imageUrl = fiat.imageUrl;
+                let image = document.createElement('img');
+                image.src = imageUrl;
+                image.style.width = "25px"
+                image.style.height = "25px"
 
-                 $("#liste-fiats").append('<tr> <td>' + name + '.</td> <td>'+rate+'</td> <td>' + symbol + 
-                 '</td> <td>' + image.outerHTML + '</td>');
+                $("#liste-fiats").append('<tr> <td>' + name + '.</td> <td>' + rate + '</td> <td>' + symbol +
+                    '</td> <td>' + image.outerHTML + '</td>');
 
-
-                 console.log(name,rate,symbol,imageUrl)
-             }
+            }
         }).catch(function error() {
-            let errordiv = document.createElement('div')
-            $(errordiv).css('text-align', 'center');
-            $(errordiv).text('La connexion n\'as pas pu etre etabli essayer de rafraichir votre navigateur 😥');
-            $("#fiats-table").append(errordiv)
-                });
-        
-    
+            catchError(false);
+        });
+
     }
 
-  
+
     //Premier appel Ajax
     ajax();
     getAjax();
